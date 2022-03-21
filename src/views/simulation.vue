@@ -23,14 +23,22 @@
         </div>
       </div>
     </div>
+    <!-- 学习成果 -->
+    <div class="content cont">
+      <div class="contit">
+        <h3>学习成果</h3>
+      </div>
+      <Record />
+    </div>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 import { getWebglUrl, simulationList } from "@/utils/simulation";
 import TopBtn from "../components/TopBtn.vue";
+import Record from '../components/Record'
 export default {
-  components: { TopBtn },
+  components: { TopBtn, Record },
   data() {
     return {
       isexam: 0, //0学习模式

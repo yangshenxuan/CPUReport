@@ -107,97 +107,94 @@ import { commentList, addCom, delCom } from "@/api/comment";
 import { dateFmt } from "@/utils/time";
 
 export default {
-data() {
-  return {
-    text: '',
+  data() {
+    return {
+      text: "",
       list: [],
       commentInputShow: false,
       addIndex: null,
-      answerText: '',
+      answerText: "",
       loading: false,
       listQuery: {
         page: 1,
-        pageSize: 10
+        pageSize: 10,
       },
       total: 0,
-  }
-},
+    };
+  },
   computed: {
-    ...mapGetters([
-      'userId',
-      'userType',
-      'userName'
-    ])
+    ...mapGetters(["userId", "userType", "userName"]),
   },
-  created(){
-    this.commentList()
+  created() {
+    this.commentList();
   },
-  methods :{
-dateFmt(time){
-  return dateFmt(time,'YYY-MM-DD h:mm')
-},
-commentList (val){
-  this.loading = true
-  this.list = []
-  if(val){
-    this.listQuery.page = val
-  }
-  commentList(this.listQuery).then(data=>{
-    this.list = data.list
-    this.total = data.count?data.count :0
-    this.loading = false
-  })
-},
+  methods: {
+    dateFmt(time) {
+      return dateFmt(time, "YYY-MM-DD h:mm");
+    },
+    commentList(val) {
+      this.loading = true;
+      this.list = [];
+      if (val) {
+        this.listQuery.page = val;
+      }
+      commentList(this.listQuery).then((data) => {
+        this.list = data.list;
+        this.total = data.count ? data.count : 0;
+        this.loading = false;
+      });
+    },
 
-//评论提交
-commentSubmit(){
-  if(!this.text.replace(/\s*/g, '')){
-    return
-  }
-  const params = {
-    type:1,
-    userId : this.userId,
-    userName: this.userName,
-    content:this.text
-  }
-  addCom(params),then(() => {
-    this.text = ''
-    this.commentList()
-  })
-},
-handleAnswer(index){
-  this.commentInputShow = true
-  this.addIndex = index
-},
-//评论回复提交
-answerSubmit(comId){
-  if(!this.answerText.replace(/\s*/g,"")){
-    return
-  }
-  const params = {
-    type:2,
-    comId,
-    userId:this.userId,
-    username: this.userName,
-    content: this.answerText
-  }
-  addCom(params).then(()=>{
-    this.answerText = ''
-    this.commentInputShow = false
-    this,commentList()
-  })
-},
-handleDel(type,comId){
-  let params = {
-    type,
-    id: comId
-  }
-  delCom(params).then(()=>{
-    this.commentList()
-  })
-}
-  }
-}
+    //评论提交
+    commentSubmit() {
+      if (!this.text.replace(/\s*/g, "")) {
+        return;
+      }
+      const params = {
+        type: 1,
+        userId: this.userId,
+        userName: this.userName,
+        content: this.text,
+      };
+      addCom(params),
+        then(() => {
+          this.text = "";
+          this.commentList();
+        });
+    },
+    handleAnswer(index) {
+      this.commentInputShow = true;
+      this.addIndex = index;
+    },
+    //评论回复提交
+    answerSubmit(comId) {
+      if (!this.answerText.replace(/\s*/g, "")) {
+        return;
+      }
+      const params = {
+        type: 2,
+        comId,
+        userId: this.userId,
+        username: this.userName,
+        content: this.answerText,
+      };
+      addCom(params).then(() => {
+        this.answerText = "";
+        this.commentInputShow = false;
+        this, commentList();
+      });
+    },
+    handleDel(type, comId) {
+      let params = {
+        type,
+        id: comId,
+      };
+      delCom(params).then(() => {
+        this.commentList();
+      });
+    },
+  },
+};
 </script>
 <style lang="scss">
 .comment {
@@ -273,13 +270,13 @@ handleDel(type,comId){
                 cursor: pointer;
                 margin-left: 30px;
                 &:hover {
-                  color:  #103871;
+                  color: #103871;
                 }
               }
             }
             .commentinputbox {
               padding: 20px 50px;
-              box-shadow: 0 0 20px rgba( #103871, 0.15);
+              box-shadow: 0 0 20px rgba(#103871, 0.15);
               width: 100%;
               border-radius: 5px;
               background: #fff;
@@ -321,4 +318,5 @@ handleDel(type,comId){
     margin: 20px 0;
     text-align: center;
   }
-}</style>
+}
+</style>

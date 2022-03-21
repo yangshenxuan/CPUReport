@@ -6,11 +6,12 @@
       action=""
       :before-upload="beforeAvatarUpload"
       :multiple="false"
-      :show-file-list="upload"
+      :show-file-list="false"
+      :http-request="upload"
     >
       <div style="color: #cf8f2e">报告上传</div>
     </el-upload>
-    <a href="docx" v-else>
+    <a :href="docx" v-else>
       <div class="btn">报告模板</div>
     </a>
   </div>
