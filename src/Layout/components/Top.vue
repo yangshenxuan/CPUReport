@@ -1,51 +1,53 @@
-<template >
-  <div class="topbox-cont" :class="isManagement ? 'padd' : 'cont'">
-    <div class="left">
-      <span class="topbox-back" @click="handleBack">
-        <img src="../../assets/img/back.png" alt="">
-      </span>
-      <router-link to="/index">
-      <img src="../../assets/img/logo.png" alt="">
-      <p>{{TITLE}}</p></router-link>
+<template>
+  <div class="topbox">
+    <div class="topbox-cont" :class="isManagement ? 'padd' : 'cont'">
+      <div class="left">
+        <span class="topbox-back" @click="handleBack">
+          <img src="../../assets/img/back.png" alt="" />
+        </span>
+        <router-link to="/index">
+          <img src="../../assets/img/logo.png" alt="" />
+          </router-link
+        >
+        <p>{{ TITLE }}</p>
+      </div>
+      <router-link
+        v-if="userType < 3 && !appId"
+        class="management"
+        :to="isManagement ? '/main' : '/management'"
+      >
+        <img v-if="isManagement" src="../../assets/img/home.png" alt="" />
+        <img v-else src="../../assets/img/go.png" alt="" />
+        {{ isManagement ? "前往主页" : "管理界面" }}
+      </router-link>
     </div>
-    <router-link v-if='userType < 3 && !appId'
-                 class="management"
-                 :to="isManagement ? '/main' : '/management'">
-                 <img v-if="isManagement" src="../../assets/img/home.png" alt="">
-                 <img v-else src="../../assets/img/go.png" alt="">
-                 {{isManagement ? '前往主页' : "管理界面"}}
-                 </router-link>
   </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
-data() {
-  return {
-    isManagement: this.$router.path.indexOf('management')!=-1
-  }
-},
-computed:{
-...mapGetters([
-  'userType',
-  'appId'
-])
-},
-methods:{
-    handleBack(){
-      this.$router.go(-1)
-    }
-  }
-
-}
+  data() {
+    return {
+      isManagement: this.$route.path.indexOf("management") != -1,
+    };
+  },
+  computed: {
+    ...mapGetters(["userType", "appId"]),
+  },
+  methods: {
+    handleBack() {
+      this.$router.go(-1);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .topbox {
   height: 100px;
-  background: $themeColor;
+  background: #103871;
   position: relative;
   padding-top: 25px;
   .padd {
@@ -56,7 +58,7 @@ methods:{
     justify-content: space-between;
     align-items: center;
     font-size: 20px;
-    color: $white;
+    color: #fff;
     .left {
       display: flex;
       align-items: center;
