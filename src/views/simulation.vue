@@ -35,7 +35,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { getWebglUrl, simulationList } from "@/utils/simulation";
-import TopBtn from "../components/TopBtn.vue";
+import TopBtn from "../components/TopBtn";
 import Record from '../components/Record'
 export default {
   components: { TopBtn, Record },
