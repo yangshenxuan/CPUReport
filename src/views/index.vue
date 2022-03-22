@@ -148,6 +148,7 @@
 </template>
 <script>
 import Login from "@/components/Login";
+import { getQueryString } from '@/utils' 
 export default {
   data() {
     return {
@@ -189,17 +190,26 @@ export default {
   },
 
   methods: {
-    handleClick(url) {
-        window.open(url);
+       handleWait () {
+      this.$router.push({ path: '/main' })
     },
-      handleWait(){
-    this.$router.push({path:'/main'})
-  },
-  getMore(){
+    handleClick(url) {
+      if(this.$store.getters.userName) {
+        window.open(url)
+      } else {
+        this.$message.warning('您未登录，请先登录！')
+        return false
+      }
+    },
+    getMore() {
+      if(this.$store.getters.userName) {
         this.$router.push({name: 'theory'})
-  }
-  }
-};
+      } else {
+        this.$message.warning('您未登录，请先登录！')
+        return false
+      }
+    }}
+}
 </script>
 <style lang="scss" scoped>
 .content {
