@@ -27,14 +27,14 @@
       <div class="contit">
         <h3>考核成果</h3>
       </div>
-      
+      <Reply :isUserId='userId' />
     </div>
   </div>
 </template>
 <script>
 import {mapGetters} from 'vuex'
 import {paperList} from '@/api/paper'
-import Reply from '@/components/StudyReply'
+import Reply from '@/components/Reply'
 import {dateFmt} from '@/utils/time'
 export default {
   data(){
@@ -76,7 +76,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .safeAccess {
   margin-top: 60px;
   .nodata {

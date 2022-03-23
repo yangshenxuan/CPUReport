@@ -129,7 +129,7 @@ export default {
       this.listQuery.page = page
       this.replylist()
     },
-    dataFmt(time){
+    dateFmt(time){
       return dateFmt(time,'YYYY-MM-DD HH:mm')
     },
     getNum(){

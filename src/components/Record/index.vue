@@ -45,7 +45,7 @@
       </el-table-column>
       <el-table-column align="center" width="160" label="开始时间">
         <template slot-scope="scope">
-          {{ dataFmt(scope.row.startTime) }}
+          {{ dateFmt(scope.row.startTime) }}
         </template>
       </el-table-column>
       <el-table-column align="center" width="160" label="结束时间">

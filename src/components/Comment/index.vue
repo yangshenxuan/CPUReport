@@ -3,83 +3,75 @@
     <div class="contit">
       <h3>评论</h3>
     </div>
-    <el-input
-      v-model="text"
-      class="commentinput"
-      placeholder="请输入评论"
-      @keyup.enter.native="commentSubmit()"
-    ></el-input>
+    <el-input v-model="text"
+              class="commentinput"
+              placeholder="请输入评论"
+              @keyup.enter.native="commentSubmit()"></el-input>
     <el-button type="primary" @click="commentSubmit()">评论</el-button>
     <div class="comment-m" v-loading="loading">
       <p>全部评论</p>
       <div class="commentul">
-        <div class="commentli" v-for="(item, index) in list" :key="index">
+        <div class="commentli"
+            v-for="(item, index) in list"
+            :key="index"
+           >
           <div class="commentcont">
-            <el-avatar icon="el-icon-user-solid" :size="70"></el-avatar>
+            <!-- 头像 -->
+            <el-avatar icon="el-icon-user-solid"
+                      :size="70"></el-avatar>
             <div class="comentcont-m">
               <div class="commentcont-b">
-                <i
-                  class="el-icon-chat-dot-round icon"
-                  @click="handleAnswer(index)"
-                ></i>
-                <i
-                  class="el-icon-delete icon"
+                <i class="el-icon-chat-dot-round icon"
+                  @click="handleAnswer(index)"></i>
+                <!-- <svg-icon class="icon"
+                          icon-class="dianzan" /> -->
+                <i class="el-icon-delete icon"
                   v-if="userType == 2"
-                  @click="handleDel(1, item.comId)"
-                ></i>
+                  @click="handleDel(1,item.comId)"
+                  style="border:1px solid red"></i>
               </div>
               <div class="commentcont-t">
                 <div class="comment-t">
-                  <div>
-                    {{ item.userName }}
-                    <div class="formatTime">{{ dateFmt(item.time) }}</div>
+                  <div>{{item.userName}}
+                    <div class="formatTime">{{dateFmt(item.time)}}</div>
                   </div>
                 </div>
-                <div class="comment-b">{{ item.content }}</div>
+                <div class="comment-b">{{item.content}}</div>
               </div>
-
+              
               <!-- 回复评论 -->
-              <div
-                class="comentinputbox"
-                v-show="commentInputShow && addIndex === index"
-              >
-                <i class="el-icon-close" @click="commentInputShow = false"></i>
-                <el-input
-                  v-model="answerText"
-                  placeholder="请输入评论"
-                  @keyup.enter.native="answerSubmit(item.comId)"
-                ></el-input>
-                <el-button type="primary" @click="answerSubmit(item.comId)"
-                  >评论</el-button
-                >
+              <div class="commentinputbox"
+                  v-show="commentInputShow && addIndex === index">
+                <i class="el-icon-close"
+                  @click="commentInputShow = false"></i>
+                <el-input v-model="answerText"
+                          placeholder="请输入评论"
+                          @keyup.enter.native="answerSubmit(item.comId)"></el-input>
+                <el-button type="primary"
+                          @click="answerSubmit(item.comId)">评论</el-button>
               </div>
               <!-- 回复列表 -->
-              <div class="commentchild" v-show="item.list && item.list2.length">
+              <div class="commentchild"
+                  v-show="item.list2&&item.list2.length">
                 <i class="el-icon-caret-top"></i>
-                <div
-                  class="comentcont-m"
-                  v-for="(i, key) in item.list2"
-                  :key="key"
-                >
+                <div class="comentcont-m"
+                    v-for="(i,key) in item.list2"
+                    :key="key">
                   <div class="commentcont-t">
                     <div class="comment-t">
                       <div class="avatar">
-                        <el-avatar
-                          :size="25"
-                          icon="el-icon-user-solid"
-                        ></el-avatar
-                        >{{ i.userName }}
-                        <div class="formatTime">{{ dateFmt(i.time) }}</div>
+                        <el-avatar :size="25" icon="el-icon-user-solid"></el-avatar>{{i.userName}}
+                        <div class="formatTime">{{dateFmt(i.time)}}</div>
                       </div>
                       <div class="commentcont-b">
-                        <i
-                          class="el-icon-delete icon"
+                        <!-- <svg-icon class="icon"
+                                  icon-class="dianzan" /> -->
+                        <i class="el-icon-delete icon"
                           v-if="userType == 2"
-                          @click="handleDel(2, i.nodeId)"
-                        ></i>
+                          @click="handleDel(2,i.nodeId)"></i>
                       </div>
                     </div>
-                    <div class="comment-b">{{ i.nodeContent }}</div>
+                    <div class="comment-b">{{i.nodeContent}}</div>
                   </div>
                 </div>
               </div>
@@ -89,14 +81,12 @@
       </div>
     </div>
     <!-- 分页 -->
-    <el-pagination
-      hide-on-single-page
-      :current-page.sync="listQuery.page"
-      :page-size="listQuery.pageSize"
-      @current-change="commentList"
-      layout="total, prev, pager, next, jumper"
-      :page-count="total"
-    >
+    <el-pagination hide-on-single-page
+                  :current-page.sync="listQuery.page"
+                  :page-size="listQuery.pageSize"
+                  @current-change="commentList"
+                  layout="total, prev, pager, next, jumper"
+                  :page-count="total">
     </el-pagination>
   </div>
 </template>
@@ -146,33 +136,33 @@ export default {
     },
 
     //评论提交
-    commentSubmit() {
+    commentSubmit () {
       if (!this.text.replace(/\s*/g, "")) {
-        return;
+        return
       }
       const params = {
         type: 1,
         userId: this.userId,
-        userName: this.userName,
+        username: this.userName,
         content: this.text,
       };
       addCom(params).then(() => {
-          this.text = "";
-          this.commentList();
-        });
+        this.text = '';
+        this.commentList();
+      });
     },
     handleAnswer(index) {
       this.commentInputShow = true;
       this.addIndex = index;
     },
     //评论回复提交
-    answerSubmit(comId) {
+    answerSubmit (comId) {
       if (!this.answerText.replace(/\s*/g, "")) {
         return;
       }
       const params = {
         type: 2,
-        comId,
+        comId: comId,
         userId: this.userId,
         username: this.userName,
         content: this.answerText,
@@ -180,7 +170,7 @@ export default {
       addCom(params).then(() => {
         this.answerText = "";
         this.commentInputShow = false;
-        this, commentList();
+        this.commentList();
       });
     },
     handleDel(type, comId) {
@@ -253,6 +243,7 @@ export default {
                 }
               }
               .comment-b {
+                text-align: start;
                 margin-top: 5px;
                 padding: 3px 0 3px 6px;
                 background: rgba($color: #eee, $alpha: 0.67);

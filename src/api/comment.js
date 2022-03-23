@@ -10,12 +10,12 @@ export function commentList(data) {
 }
 
 //添加评论回复
-export function addCom(data) {
+export function addCom (data) {
   return request({
-    url: "/comment/addComment.do",
-    method: "post",
-    data,
-  });
+    url: '/comment/addComment.do',
+    method: 'post',
+    data
+  })
 }
 
 //删除评论回复

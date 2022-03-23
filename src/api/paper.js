@@ -88,6 +88,15 @@ export function delPaperQuestion(data){
   })
 }
 
+// 试卷考试记录
+export function testRecord (data) {
+  return request({
+    url: '/testPaper/record.do',
+    method: 'post',
+    data
+  })
+}
+
 //答案提交
 export function testSubmit(data){
   return request({

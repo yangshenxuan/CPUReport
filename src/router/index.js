@@ -7,6 +7,7 @@ import main from "../views/main.vue"
 import Theory from '../views/theory.vue'
 import Simulation from '../views/simulation.vue'
 import Theoretical from '../views/theoretical.vue'
+import Examine from '../views/examine.vue'
 
 
 const TITLE = process.env.VUE_APP_TITLE; //环境标题
@@ -53,6 +54,12 @@ const router = new Router({
         }
       ],
     },
+    {
+      path:'/examine',
+      name: 'examine',
+      component:Examine,
+      meta: { title: `理论试卷-${TITLE}` }
+    }
   ],
 });
 
