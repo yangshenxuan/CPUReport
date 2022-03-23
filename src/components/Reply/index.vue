@@ -36,12 +36,64 @@
               :key="item.id"
             ></el-option></div
         ></el-select>
-        <el-button type="primary"
-                   style="margin-left:20px"
-                   @click="getReplyList()">查询</el-button>
+        <el-button
+          type="primary"
+          style="margin-left: 20px"
+          @click="getReplyList()"
+          >查询</el-button
+        >
       </div>
       <el-button @click="handleExport">成绩导出</el-button>
     </div>
+    <el-table
+      :data="replyList"
+      v-loading="loading"
+      border
+      style="width: 100%"
+      :cell-style="cellStyle"
+      :header-cell-style="headerCellStyle"
+    >
+      <el-table-column type="index" label="序号" align="center" width="80">
+      </el-table-column>
+      <el-table-column prop="school" align="center" label="学校">
+      </el-table-column>
+      <el-table-column prop="college" align="center" label="学院">
+      </el-table-column>
+      <el-table-column prop="major" align="center" label="专业">
+      </el-table-column>
+      <el-table-column prop="classes" align="center" label="班级">
+      </el-table-column>
+      <el-table-column prop="userName" align="center" label="姓名">
+      </el-table-column>
+      <el-table-column prop="tpName" align="center" label="试卷名">
+      </el-table-column>
+      <el-table-column align="center" width="180" label="答题时间">
+        <template slot-scope="scope">
+          {{ dateFmt(scope.row.time) }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="score" align="center" label="分数">
+        <template slot-scope="scope">
+          <el-button type="text" @click="handleDetail(scope.row)">{{
+            scope.row.score
+          }}</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <!-- 分页 -->
+    <el-pagination class="pagination"
+                   hide-on-single-page
+                   :current-page.sync="listQuery.page"
+                   :page-size="listQuery.pageSize"
+                   @current-change='change'
+                   layout="prev,pager,next,jumper"
+                   :page-count="total"></el-pagination>
+    <el-dialog title="答题记录"
+               :append-to-body='true'
+               width="670px"
+               :close-on-click-modal='false'
+               :close-on-press-escape='false'
+               :visible.sync='dialogVisible'></el-dialog>
   </div>
 </template>
 <script>

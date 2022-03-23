@@ -69,7 +69,7 @@
                           icon="el-icon-user-solid"
                         ></el-avatar
                         >{{ i.userName }}
-                        <div class="formatTime">{{ dataFmt(i.time) }}</div>
+                        <div class="formatTime">{{ dateFmt(i.time) }}</div>
                       </div>
                       <div class="commentcont-b">
                         <i
@@ -156,8 +156,7 @@ export default {
         userName: this.userName,
         content: this.text,
       };
-      addCom(params),
-        then(() => {
+      addCom(params).then(() => {
           this.text = "";
           this.commentList();
         });
