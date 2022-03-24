@@ -102,7 +102,7 @@ export default {
       },
       loading: false,
       quesIds: [],
-      dialogVisible: true,
+      dialogVisible: false,
       score: null,
     };
   },

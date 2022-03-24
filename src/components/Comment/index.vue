@@ -120,7 +120,7 @@ export default {
   },
   methods: {
     dateFmt(time) {
-      return dateFmt(time, "YYY-MM-DD h:mm");
+      return dateFmt(time, "YYY-MM-DD H:mm");
     },
     commentList(val) {
       this.loading = true;
