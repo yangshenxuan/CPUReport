@@ -80,10 +80,37 @@ const router = new Router({
           name: "examineScore",
           component: () => import("@/views/management/examineScore"),
         },
-        { 
-          path: "ratingSettings" ,
-          name:'ratingSettings',
-          component:() => import("@/views/management/ratingSettings")
+        {
+          path: "ratingSettings",
+          name: "ratingSettings",
+          component: () => import("@/views/management/ratingSettings"),
+        },
+        //题库管理
+        {
+          path: "questionBank",
+          name: "questionBank",
+          component: () => import("../views/management/questionBank.vue"),
+          redirect: { name: "subject" },
+          children: [
+            {
+              path: "subject",
+              name: "subject",
+              component: () =>
+                import("../views/management/components/subject.vue"),
+            },
+            {
+              path: "question",
+              name: "question",
+              component: () =>
+                import("../views/management/components/question.vue"),
+            },
+            {
+              path: "paper",
+              name: "paper",
+              component: () =>
+                import("../views/management/components/paper.vue"),
+            },
+          ],
         },
       ],
     },
